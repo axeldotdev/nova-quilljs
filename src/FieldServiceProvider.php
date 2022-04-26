@@ -1,6 +1,6 @@
 <?php
 
-namespace Ek0519\Quilljs;
+namespace Axeldotdev\Quilljs;
 
 use Laravel\Nova\Nova;
 use Laravel\Nova\Events\ServingNova;
@@ -20,22 +20,23 @@ class FieldServiceProvider extends ServiceProvider
             $this->routes();
         });
 
-        $this->loadMigrationsFrom(__DIR__.'/migrations/2019_10_09_104240_add_trix_table');
+        $this->loadMigrationsFrom(__DIR__ . '/../migrations/2019_10_09_104240_add_trix_table');
 
         $this->publishes([
-            __DIR__ . '/config/quilljs.php' => config_path('quilljs.php'),
-            __DIR__ . '/config/tooltip.php' => config_path('tooltip.php'),
+            __DIR__ . '/../config/quilljs.php' => config_path('quilljs.php'),
+            __DIR__ . '/../config/tooltip.php' => config_path('tooltip.php'),
         ], 'config');
 
         $this->publishes([
-            __DIR__ . '/migrations/' => database_path('migrations'),
+            __DIR__ . '/../migrations/' => database_path('migrations'),
         ], 'migrations');
 
         Nova::serving(function (ServingNova $event) {
-            Nova::script('quilljs', __DIR__.'/../dist/js/field.js');
-            Nova::style('quilljs', __DIR__.'/../dist/css/field.css');
+            Nova::script('quilljs', __DIR__ . '/../dist/js/field.js');
+            Nova::style('quilljs', __DIR__ . '/../dist/css/field.css');
         });
     }
+
     /**
      * Register the tool's routes.
      *
@@ -47,10 +48,10 @@ class FieldServiceProvider extends ServiceProvider
             return;
         }
 
-        Route::middleware(['nova'])
-                ->prefix('nova-vendor/quilljs')
-                ->namespace('Ek0519\Quilljs\Http\Controllers')
-                ->group(__DIR__.'/../routes/api.php');
+        Route::middleware(['nova', Authorize::class])
+            ->prefix('nova-vendor/quilljs')
+            ->namespace('Axeldotdev\Quilljs\Http\Controllers')
+            ->group(__DIR__ . '/../routes/api.php');
     }
 
     /**
@@ -60,12 +61,12 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (!$this->app['config']->has('quilljs')) {
-            $this->mergeConfigFrom(__DIR__ . '/config/quilljs.php', 'quilljs');
+        if (! $this->app['config']->has('quilljs')) {
+            $this->mergeConfigFrom(__DIR__ . '/../config/quilljs.php', 'quilljs');
         }
 
-        if (!$this->app['config']->has('tooltip')) {
-            $this->mergeConfigFrom(__DIR__ . '/config/tooltip.php', 'tooltip');
+        if (! $this->app['config']->has('tooltip')) {
+            $this->mergeConfigFrom(__DIR__ . '/../config/tooltip.php', 'tooltip');
         }
     }
 }

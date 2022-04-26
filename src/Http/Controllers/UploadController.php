@@ -1,7 +1,6 @@
 <?php
 
-namespace Ek0519\Quilljs\Http\Controllers;
-
+namespace Axeldotdev\Quilljs\Http\Controllers;
 
 use Illuminate\Routing\Controller;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -17,13 +16,15 @@ class UploadController extends Controller
     public function store(NovaRequest $request)
     {
         $field = $request->newResource()
-                        ->availableFields($request)
-                        ->findFieldByAttribute($request->field, function () {
+            ->availableFields($request)
+            ->findFieldByAttribute($request->field, function () {
                             abort(404);
                         });
+
         return response()->json(['url' => call_user_func(
-            $field->attachCallback, $request
-        ),'all' => $request]);
+            $field->attachCallback,
+            $request
+        ), 'all' => $request]);
     }
 
     /**
@@ -35,13 +36,14 @@ class UploadController extends Controller
     public function destroyAttachment(NovaRequest $request)
     {
         $field = $request->newResource()
-                        ->availableFields($request)
-                        ->findFieldByAttribute($request->field, function () {
+            ->availableFields($request)
+            ->findFieldByAttribute($request->field, function () {
                             abort(404);
                         });
 
         call_user_func(
-            $field->detachCallback, $request
+            $field->detachCallback,
+            $request
         );
     }
 
@@ -54,13 +56,14 @@ class UploadController extends Controller
     public function destroyPending(NovaRequest $request)
     {
         $field = $request->newResource()
-                        ->availableFields($request)
-                        ->findFieldByAttribute($request->field, function () {
+            ->availableFields($request)
+            ->findFieldByAttribute($request->field, function () {
                             abort(404);
                         });
 
         call_user_func(
-            $field->discardCallback, $request
+            $field->discardCallback,
+            $request
         );
     }
 }

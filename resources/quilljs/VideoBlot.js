@@ -1,21 +1,23 @@
-import Quill from 'quill'
-import Link from 'quill/formats/link'
+import Quill from 'quill';
+import Link from 'quill/formats/link';
 
-const ATTRIBUTES = [
-    'height',
-    'width'
-];
+const ATTRIBUTES = ['height', 'width'];
 
-const BlockEmbed = Quill.import('blots/block/embed')
+const BlockEmbed = Quill.import('blots/block/embed');
 
 export class VideoBlot extends BlockEmbed {
     static create(url) {
         let node = super.create();
         // const vidWrapper = document.createElement('div');
-        const regex = /facebook\.com\/[a-zA-Z0-9\.]+\/videos\/(?:[a-z0-9\.]+\/)?([0-9]+)\/?(.*)/gm
+        const regex =
+            /facebook\.com\/[a-zA-Z0-9\.]+\/videos\/(?:[a-z0-9\.]+\/)?([0-9]+)\/?(.*)/gm;
         if (regex.test(this.sanitize(url))) {
-            let facebook_prefix = 'https://www.facebook.com/plugins/video.php?href='
-            node.setAttribute('src', facebook_prefix + encodeURIComponent(this.sanitize(url)))
+            let facebook_prefix =
+                'https://www.facebook.com/plugins/video.php?href=';
+            node.setAttribute(
+                'src',
+                facebook_prefix + encodeURIComponent(this.sanitize(url))
+            );
         } else {
             node.setAttribute('src', this.sanitize(url));
         }

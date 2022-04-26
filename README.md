@@ -1,23 +1,18 @@
-# Laravel Nova Quilljs editor Field
+# Nova Quilljs
 
-A Laravel Nova implementation of the [Quill editor for Vue.js](https://github.com/surmon-china/vue-quill-editor)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/axeldotdev/quilljs.svg?style=flat-square)](https://packagist.org/packages/axeldotdev/quilljs)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/axeldotdev/quilljs/run-tests?label=tests)](https://github.com/axeldotdev/quilljs/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/axeldotdev/quilljs/Check%20&%20fix%20styling?label=code%20style)](https://github.com/axeldotdev/quilljs/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/axeldotdev/quilljs.svg?style=flat-square)](https://packagist.org/packages/axeldotdev/quilljs)
 
-[![Latest Stable Version](https://poser.pugx.org/ek0519/quilljs/v/stable)](https://packagist.org/packages/ek0519/quilljs)
-[![Total Downloads](https://poser.pugx.org/ek0519/quilljs/downloads)](https://packagist.org/packages/ek0519/quilljs)
-[![License](https://poser.pugx.org/ek0519/quilljs/license)](https://packagist.org/packages/ek0519/quilljs)
-[![Monthly Downloads](https://poser.pugx.org/ek0519/quilljs/d/monthly)](https://packagist.org/packages/ek0519/quilljs)
-[![Daily Downloads](https://poser.pugx.org/ek0519/quilljs/d/daily)](https://packagist.org/packages/ek0519/quilljs)
-## What's new (2021-11-22)?
-You can use custom quilljs setting in different fields. 
-### 2021-08-09
-Work with other package [nova-translatable](https://github.com/optimistdigital/nova-translatable) and [nova-flexible-content](https://github.com/whitecube/nova-flexible-content), maybe it can change Vue `this.fields.attribute`, so I add `uploadUrlSplit` method, You can correctly upload your image.
+This package brings SEO tools like redirections manager, robot.txt manager, metadata field, structured data field.
 
 
 ## Installation
 
 Install via composer
 ```
-composer require ek0519/quilljs
+composer require axeldotdev/quilljs
 ```
 
 ## Modify quill's height, width, padding bottom
@@ -38,7 +33,7 @@ Boolean
 ### **height(value)**
 Number (unit px)
 ```
-use Ek0519\Quilljs\Quilljs;
+use Axeldotdev\Quilljs\Quilljs;
 
 Quilljs::make('content')
         ->withFiles('public')
@@ -53,11 +48,11 @@ I add this module https://github.com/Fandom-OSS/quill-blot-formatter , thanks fo
 
 ## Image upload size
 
-### **maxFileSize(size)**  
-size : Number, default 2(MB)  
+### **maxFileSize(size)**
+size : Number, default 2(MB)
 **example**
 ```
-use Ek0519\Quilljs\Quilljs;
+use Axeldotdev\Quilljs\Quilljs;
 
 Quilljs::make('content')
         ->withFiles('public')
@@ -67,19 +62,19 @@ Quilljs::make('content')
 
 ## Image upload
 
-This Nova field provides native attachments driver which works similar to [Trix File Uploads](https://nova.laravel.com/docs/2.0/resources/fields.html#trix-field).
+This Nova field provides native attachments driver which works similar to [Trix File Uploads](https://nova.laravel.com/docs/4.0/resources/fields.html#trix-field).
 
 To use this attachments driver, publish and run the migration(also publish quilljs config to set [toolbar](https://quilljs.com/docs/modules/toolbar/)):
 
 ```
-php artisan vendor:publish --provider="Ek0519\Quilljs\FieldServiceProvider"
+php artisan vendor:publish --provider="Axeldotdev\Quilljs\FieldServiceProvider"
 php artisan migrate
 ```
 
 Then, allow users to upload images, just like with Trix field, chaining the withFiles method onto the field's definition. When calling this method, you should pass the name of the filesystem disk that images should be stored on(in this example, we use **public**, please use this command `php artisan storage:link` ):
 
 ```
-use Ek0519\Quilljs\Quilljs;
+use Axeldotdev\Quilljs\Quilljs;
 
 Quilljs::make('content')
         ->withFiles('public')
@@ -90,20 +85,20 @@ Quilljs::make('content')
 
 ### Work with other package [nova-translatable](https://github.com/optimistdigital/nova-translatable) and [nova-flexible-content](https://github.com/whitecube/nova-flexible-content)
 
-When you use other packages like [nova-translatable](https://github.com/optimistdigital/nova-translatable) and [nova-flexible-content](https://github.com/whitecube/nova-flexible-content), they will overwrite upload api.  
+When you use other packages like [nova-translatable](https://github.com/optimistdigital/nova-translatable) and [nova-flexible-content](https://github.com/whitecube/nova-flexible-content), they will overwrite upload api.
 
-Ex: origin `your_host/nova-vendor/quilljs/articles/upload/content` , 
-maybe overwrite to   
-`/nova-vendor/quilljs/articles/upload/content.en` or  
-`/nova-vendor/quilljs/articles/upload/content__SDAcscsdw`.  
+Ex: origin `your_host/nova-vendor/quilljs/articles/upload/content` ,
+maybe overwrite to
+`/nova-vendor/quilljs/articles/upload/content.en` or
+`/nova-vendor/quilljs/articles/upload/content__SDAcscsdw`.
 
-You can use 
-### **uploadUrlSplit(split_string)**  
-split_string : String  
+You can use
+### **uploadUrlSplit(split_string)**
+split_string : String
 **example**
 
 ```
-use Ek0519\Quilljs\Quilljs;
+use Axeldotdev\Quilljs\Quilljs;
 
 Quilljs::make('content')
         ->withFiles('public')
@@ -127,7 +122,7 @@ Quilljs::make(__('Content'), 'content')
                 ->tooltip(true)
 ```
 
-**in config/tooltip.php** 
+**in config/tooltip.php**
 
 You can use favorite description of tooltip.
 
@@ -221,8 +216,6 @@ Quilljs::make(__('Content'), 'content')
 
 ```
 
-
-
 ## Video embed
 
 Only support **Youtube** **Facebook**，default size in Nova was **width 800px** and **height 450px**，define in css
@@ -232,7 +225,6 @@ Only support **Youtube** **Facebook**，default size in Nova was **width 800px**
   height: 450px;
 }
 ```
-
 
 ### Youtube
 
@@ -246,4 +238,29 @@ Only support **Youtube** **Facebook**，default size in Nova was **width 800px**
 
 ![](https://i.imgur.com/lqDj6Y4.png)
 
+## Testing
 
+```bash
+composer test
+```
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+
+## Security Vulnerabilities
+
+Please review [our security policy](SECURITY.md) on how to report security vulnerabilities.
+
+## Credits
+
+- [axeldotdev](https://github.com/axeldotdev)
+- [All Contributors](../../contributors)
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
